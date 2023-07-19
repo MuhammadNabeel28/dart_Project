@@ -210,7 +210,7 @@ void viewPurchaselist(){
   print('===Purchase List===');
   print('');
   for (var i = 0; i < purchaseList.length; i++) {
-    print('ItemId $i : ${purchaseList[i]}');
+    print("Purchase List: ${purchaseList[i]}");
   }
    
 
