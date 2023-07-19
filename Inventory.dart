@@ -1,13 +1,12 @@
 // ignore_for_file: unused_local_variable
 
-
 import 'dart:io';
 
 String user_Id = '';
 bool success = false;
 
 List itemList = [];
-List purchaseList = [];
+List<Map<String, dynamic>> purchaseList = [];
 
 void main() {
   bool condation = true;
@@ -50,19 +49,17 @@ void main() {
         editItem();
         break;
 
-        case'F':
+      case 'F':
         findByItemId();
         break;
 
-        case'E':
+      case 'E':
         purchase();
         break;
 
-        case'P':
+      case 'P':
         viewPurchaselist();
         break;
-
-
 
       case 'D':
         itemDelete();
@@ -175,15 +172,13 @@ void findByItemId() {
   var itemId = stdin.readLineSync()!;
   int id_ = int.parse(itemId);
   var item_ = itemList.elementAt(id_);
-  if (item_  != 0)
+  if (item_ != 0)
     print('Find Item : $item_');
   else
     print('Item Not Found :');
-
-  
 }
 
-void purchase(){
+void purchase() {
   print('=====Purchase Item=====');
   print('');
   print('===Purchase Item Name===');
@@ -194,24 +189,22 @@ void purchase(){
   print('');
   print('===Purchase Price===');
   var price = stdin.readLineSync()!;
-   
+
   num total = num.parse(qty_) * num.parse(price);
-  Map purchaseList ={
-   "Item" : item_Name,
-   "Qty" : qty_,
-   "Price" : price,
-   "Amount" : total,
+  Map<String, dynamic> purchase = {
+    "Item": item_Name,
+    "Qty": int.parse(qty_),
+    "Price": double.parse(price),
+    "Amount": total,
   };
-  purchaseList.addAll(purchaseList);
+  purchaseList.add(purchase);
   print(purchaseList);
 }
 
-void viewPurchaselist(){
+void viewPurchaselist() {
   print('===Purchase List===');
   print('');
   for (var i = 0; i < purchaseList.length; i++) {
     print('ItemId $i : ${purchaseList[i]}');
   }
-   
-
 }
