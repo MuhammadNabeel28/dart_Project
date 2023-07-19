@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+
 import 'dart:io';
 
 String user_Id = '';
@@ -7,6 +8,7 @@ bool success = false;
 
 List itemList = [];
 List<Map<String, dynamic>> purchaseList = [];
+List<Map<String, dynamic>> saleList = [];
 
 void main() {
   bool condation = true;
@@ -56,6 +58,10 @@ void main() {
       case 'E':
         purchase();
         break;
+
+      case 'S':
+       sale();
+       break;
 
       case 'P':
         viewPurchaselist();
@@ -207,4 +213,38 @@ void viewPurchaselist() {
   for (var i = 0; i < purchaseList.length; i++) {
     print("Purchase List: ${purchaseList[i]}");
   }
+}
+
+void sale(){
+print('===Input Sale Item===');
+print('');
+
+var sale_Item = stdin.readLineSync()!;
+
+ bool isavailable = false;
+ for(var item in purchaseList){
+  if(item.containsValue(sale_Item)){
+    print('Item available : ${item.containsValue(sale_Item)}');
+    isavailable = true;
+    
+   }
+   else{
+    print('$sale_Item : This item not available');
+   }
+
+ }
+
+print('===Sale Price===');
+
+ var SalePrince = stdin.readLineSync()!;
+
+for (var i = 0; i < purchaseList.length; i++) {
+    for(var item in purchaseList){
+   if(item.containsValue(sale_Item)){
+    purchaseList.removeAt(i);
+   }
+ }
+}
+
+ print('Lis : $purchaseList');
 }
