@@ -1,6 +1,5 @@
 // ignore_for_file: unused_local_variable
 
-
 import 'dart:io';
 
 String user_Id = '';
@@ -60,8 +59,8 @@ void main() {
         break;
 
       case 'S':
-       sale();
-       break;
+        sale();
+        break;
 
       case 'P':
         viewPurchaselist();
@@ -146,12 +145,16 @@ void viewAllItem() {
 }
 
 void itemDelete() {
-  print('==== Type Delete Name ====');
+  if (user_Id == 'master') {
+    print('==== Type Delete Name ====');
 
-  String? Item = stdin.readLineSync()!;
-  itemList.remove(Item);
+    String? Item = stdin.readLineSync()!;
+    itemList.remove(Item);
 
-  print('====Item Deleted  Successfully!====');
+    print('====Item Deleted  Successfully!====');
+  } else {
+    print('You cannot delete item');
+  }
 }
 
 void editItem() {
@@ -215,36 +218,31 @@ void viewPurchaselist() {
   }
 }
 
-void sale(){
-print('===Input Sale Item===');
-print('');
+void sale() {
+  if (user_Id == 'master') {
+    print('===Input Sale Item===');
+    print('');
 
-var sale_Item = stdin.readLineSync()!;
+    var sale_Item = stdin.readLineSync()!;
 
- bool isavailable = false;
- for(var item in purchaseList){
-  if(item.containsValue(sale_Item)){
-    print('Item available : ${item.containsValue(sale_Item)}');
-    isavailable = true;
-    
-   }
-   else{
-    print('$sale_Item : This item not available');
-   }
+    bool isavailable = false;
+    for (var item in purchaseList) {
+      if (item.containsValue(sale_Item)) {
+        print('Item available : ${item.containsValue(sale_Item)}');
+        isavailable = true;
+      } else {
+        print('$sale_Item : This item not available');
+      }
+    }
 
- }
+    print('===Sale Price===');
 
-print('===Sale Price===');
+    var SalePrince = stdin.readLineSync()!;
 
- var SalePrince = stdin.readLineSync()!;
+    purchaseList.removeWhere((e) => e["Item"] == sale_Item);
 
-for (var i = 0; i < purchaseList.length; i++) {
-    for(var item in purchaseList){
-   if(item.containsValue(sale_Item)){
-    purchaseList.removeAt(i);
-   }
- }
-}
-
- print('Lis : $purchaseList');
+    print('Lis : $purchaseList');
+  } else {
+    print('You cannot sale item');
+  }
 }
