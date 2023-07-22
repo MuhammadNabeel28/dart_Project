@@ -5,18 +5,18 @@ import 'dart:io';
 
 String user_Id = '';
 bool success = false;
-bool isCondation = false;
+bool isCondation = true;
 List itemList = [];
 List<Map<String, dynamic>> purchaseList = [];
 List<Map<String, dynamic>> saleList = [];
 
 void main() {
-  bool condation = true;
+ 
 
   print("============ Welcome To Smart Inventory ===========");
   print(' ');
 
-  while (condation) {
+  while (isCondation) {
     if (!success) {
       print('Login First Press : A');
     } else {
@@ -60,8 +60,8 @@ void main() {
         break;
 
       case 'S':
-       sale();
-       break;
+        sale();
+        break;
 
       case 'P':
         viewPurchaselist();
@@ -72,7 +72,7 @@ void main() {
         break;
 
       case 'Z':
-        condation = false;
+        isCondation = false;
         print('====Program Ended=====');
         print('');
         break;
@@ -83,7 +83,7 @@ void main() {
 void login() {
   List<Map<String, String>> userCredentials = [
     {'email': 'nabeel_master789@gmail.com', 'password': 'master123'},
-    {'email': 'asif_user@gmail.com', 'password': 'user123'},
+    {'email': 'bilal_user@gmail.com', 'password': 'user123'},
   ];
 
   String? UserId_ = '';
@@ -146,12 +146,16 @@ void viewAllItem() {
 }
 
 void itemDelete() {
-  print('==== Type Delete Name ====');
+  if (user_Id == 'master') {
+    print('==== Type Delete Name ====');
 
-  String? Item = stdin.readLineSync()!;
-  itemList.remove(Item);
+    String? Item = stdin.readLineSync()!;
+    itemList.remove(Item);
 
-  print('====Item Deleted  Successfully!====');
+    print('====Item Deleted  Successfully!====');
+  } else {
+    print('You cannot delete item');
+  }
 }
 
 void editItem() {
@@ -215,37 +219,21 @@ void viewPurchaselist() {
   }
 }
 
-void sale(){
-print('===Input Sale Item===');
-print('');
+void sale() {
+  if (user_Id == 'master') {
+    print('===Input Sale Item===');
+    print('');
 
-var sale_Item = stdin.readLineSync()!;
+    var sale_Item = stdin.readLineSync()!;
 
- bool isavailable = false;
- for(var item in purchaseList){
-  if(item.containsValue(sale_Item)){
-    var itemName = item.containsValue(sale_Item) ? "Item Available" :"Not";
-    print('Item available : $itemName');
-    isavailable = true;
-    
-   }
-   else{
-    print('$sale_Item : This item not available');
-   }
+    print('===Sale Price===');
 
- }
+    var SalePrince = stdin.readLineSync()!;
 
-print('===Sale Price===');
+    purchaseList.removeWhere((e) => e["Item"] == sale_Item);
 
- var SalePrince = stdin.readLineSync()!;
-
-for (var i = 0; i < purchaseList.length; i++) {
-    for(var item in purchaseList){
-   if(item.containsValue(sale_Item)){
-    purchaseList.removeAt(i);
-   }
- }
-}
-
- print('Lis : $purchaseList');
+    print('Lis : $purchaseList');
+  } else {
+    print('You cannot sale item');
+  }
 }
