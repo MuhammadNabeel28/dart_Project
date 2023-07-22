@@ -5,7 +5,7 @@ import 'dart:io';
 
 String user_Id = '';
 bool success = false;
-
+bool isCondation = false;
 List itemList = [];
 List<Map<String, dynamic>> purchaseList = [];
 List<Map<String, dynamic>> saleList = [];
@@ -95,7 +95,7 @@ void login() {
   print('====Enter Password====');
   Password_ = stdin.readLineSync()!.trim();
 
-  bool isCondation = false;
+  
   for (var credentials in userCredentials) {
     if (UserId_ == credentials['email'] &&
         Password_ == credentials['password']) {
@@ -224,7 +224,8 @@ var sale_Item = stdin.readLineSync()!;
  bool isavailable = false;
  for(var item in purchaseList){
   if(item.containsValue(sale_Item)){
-    print('Item available : ${item.containsValue(sale_Item)}');
+    var itemName = item.containsValue(sale_Item) ? "Item Available" :"Not";
+    print('Item available : $itemName');
     isavailable = true;
     
    }
